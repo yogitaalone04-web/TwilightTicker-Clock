@@ -1,0 +1,18 @@
+Core Functional Features of Git
+Version Control Git tracks changes to files over time, allowing you to revert to previous versions, compare changes, and understand the evolution of your project.
+
+Distributed Architecture Every developer has a full copy of the repository—including its entire history—on their local machine. This means you can work offline and sync changes later.
+
+Branching and Merging You can create branches to work on new features or experiments without affecting the main codebase. Once ready, changes can be merged back in, with conflict resolution tools to help.
+
+Commit History Each commit is a snapshot of your project at a specific point in time, complete with a unique ID and message. This makes tracking changes and debugging much easier.
+
+Staging Area Git uses a staging area to prepare changes before committing. This gives you control over what gets included in each commit.
+
+Speed and Efficiency Git operations are lightning-fast because most actions are performed locally. It stores data as snapshots rather than file-based changes, which boosts performance.
+
+Collaboration Tools Git supports multiple workflows and remote repositories, making it ideal for teams. You can push and pull changes, resolve conflicts, and review contributions seamlessly.
+
+Security and Integrity Git uses SHA-1 hashing to ensure the integrity of your data. Every commit is checksummed, so you can trust that your history hasn’t been tampered with.
+
+Cloning and Forking Easily duplicate repositories to start new projects or contribute to existing ones. Cloning brings the entire history, while forking is great for open-source collaboration
