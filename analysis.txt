@@ -15,4 +15,24 @@ Collaboration Tools Git supports multiple workflows and remote repositories, mak
 
 Security and Integrity Git uses SHA-1 hashing to ensure the integrity of your data. Every commit is checksummed, so you can trust that your history hasn’t been tampered with.
 
-Cloning and Forking Easily duplicate repositories to start new projects or contribute to existing ones. Cloning brings the entire history, while forking is great for open-source collaboration
+Cloning and Forking Easily duplicate repositories to start new projects or contribute to existing ones. Cloning brings the entire history, while forking is great for open-source collaboration.
+
+
+
+Common Git Commands for Connectivity
+git clone https://... → Clone via HTTPS
+
+git clone git@github.com:user/repo.git → Clone via SSH
+
+git remote add origin <url> → Add a remote repository
+
+git push origin main → Push changes to remote
+
+git fetch origin → Fetch updates from remote
+
+🧠 Pro Tips
+SSH is more secure and flexible for teams, especially with CI/CD pipelines.
+
+HTTPS is simpler for beginners and works well with credential managers.
+
+You can switch protocols anytime using git remote set-url origin <new-url>.
