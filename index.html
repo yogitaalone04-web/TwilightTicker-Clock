@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Retro Clock with Reflection + AM/PM</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+    body {
+      background: #121212;
+      color: #00ffea;
+      font-family: 'Courier Prime', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      letter-spacing: 3px;
+      text-shadow: 0 0 5px #00fff9, 0 0 10px #00fff9;
+    }
+
+    .clock-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    table.clock-table {
+      border-collapse: collapse;
+      border: 3px solid #00fff9;
+      box-shadow: 0 0 15px #00fff9;
+      background: #000;
+      color: #00fff9;
+      font-size: 3rem;
+      width: 500px; /* increased width to fit AM/PM */
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    table.clock-table thead tr th {
+      border-bottom: 3px solid #00fff9;
+      padding: 0.6rem;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+    }
+
+    table.clock-table tbody tr td, table.clock-table tbody tr td.ampm {
+      border-right: 3px solid #00fff9;
+      padding: 1rem 0;
+    }
+
+    table.clock-table tbody tr td:last-child {
+      border-right: none;
+    }
+
+    table.clock-table tbody tr td.ampm {
+      border-left: 3px solid #00fff9; /* separator before AM/PM */
+      font-size: 1.8rem;
+      width: 70px;
+    }
+
+    /* Reflection */
+    .reflection {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      height: 140px;
+      transform: scaleY(-1);
+      opacity: 0.2;
+      filter: blur(2px);
+      pointer-events: none;
+      user-select: none;
+      animation: flicker 4s infinite alternate;
+    }
+
+    .reflection table.clock-table thead {
+      display: none;
+    }
+
+    .reflection table.clock-table tbody tr td {
+      border-color: transparent;
+      color: #00fff9;
+    }
+
+    @keyframes flicker {
+      0%, 100% {
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 0.15;
+      }
+    }
+
+    .date {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      color: #00ffea;
+      text-shadow: 0 0 5px #00fff9;
+    }
+
+    .greeting {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      color: #00ffae;
+      text-shadow: 0 0 5px #00ffae;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>THE TIME IS NOW</h1>
+    <div class="clock-wrapper">
+      <table class="clock-table">
+        <thead>
+          <tr>
+            <th>HOURS</th>
+            <th>MINUTES</th>
+            <th>SECONDS</th>
+            <th>AM/PM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="hours">00</td>
+            <td id="minutes">00</td>
+            <td id="seconds">00</td>
+            <td id="ampm" class="ampm">AM</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="reflection">
+        <table class="clock-table">
+          <tbody>
+            <tr>
+              <td id="hours-reflection">00</td>
+              <td id="minutes-reflection">00</td>
+              <td id="seconds-reflection">00</td>
+              <td id="ampm-reflection" class="ampm">AM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="date" id="date"></div>
+    <div class="greeting" id="greeting"></div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      // 24-hour hours
+      let h24 = now.getHours();
+
+      // Determine AM or PM
+      const ampm = h24 >= 12 ? 'PM' : 'AM';
+
+      // Convert to 12-hour format
+      let h12 = h24 % 12;
+      if (h12 === 0) h12 = 12; 
+
+      const hours = String(h12).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+      document.getElementById('ampm').textContent = ampm;
+
+      document.getElementById('hours-reflection').textContent = hours;
+      document.getElementById('minutes-reflection').textContent = minutes;
+      document.getElementById('seconds-reflection').textContent = seconds;
+      document.getElementById('ampm-reflection').textContent = ampm;
+
+      // Date
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('date').textContent = now.toLocaleDateString(undefined, options);
+
+      // Greeting
+      let greeting;
+      if (h24 >= 5 && h24 < 12) {
+        greeting = 'Good Morning!';
+      } else if (h24 >= 12 && h24 < 18) {
+        greeting = 'Good Afternoon!';
+      } else {
+        greeting = 'Good Evening!';
+      }
+      document.getElementById('greeting').textContent = greeting;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
